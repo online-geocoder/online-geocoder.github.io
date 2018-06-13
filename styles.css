@@ -14,12 +14,14 @@ html, body {
   }
 
 #viewDiv {
-  padding: 0;
+  padding: 2px;
   margin: auto;
-  height: 55%;
-  width: 100%;
+  height: 60%;
+  width: 60%;
   text-align: center;
   background-color: white;
+  border: #CD3331 2px solid;
+  border-radius: 10px;
   }
 
 nav {
@@ -45,14 +47,42 @@ nav h1 {
 
 #address-in {
   width: 500px;
-  height: 200px;;
+  height: 200px;
+  padding: 5px;
 }
 
 #api-in {
-  width: 325px;
+  width: 345px;
   text-align: center;
+  padding: 5px;
 }
 
 #api-form {
   margin-bottom: 10px;
+}
+
+.text-in {
+  border: #CD3331 2px solid;
+  border-radius: 10px;
+}
+
+.text-out {
+  border: #CD3331 2px solid;
+  border-radius: 10px;
+}
+
+#outputs {
+  margin-top: 35px;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+#latlon-out {
+  width: 500px;
+  height: 200px;
+  padding: 5px;
+}
+
+.header {
+  margin-bottom: 2px;
 }

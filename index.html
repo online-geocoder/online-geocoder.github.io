@@ -11,23 +11,24 @@
 </head>
 <body>
     <nav>
-        <h1>Geocoder</h1>
+        <h1 id="title">Geocoder</h1>
     </nav>
     <div id="top">
         <div id="inputs">
             <form id='api-form'>
-                <h2>Api Key</h3>
-                <input type="text" class="field" id="api-in" value="AIzaSyDpa9FUmUBcVQwg37VRDoOs3W3JVUjaD00"></input>
+                <h2 class="header">Api Key</h2>
+                <input type="text" class="field text-in" id="api-in" value="AIzaSyDpa9FUmUBcVQwg37VRDoOs3W3JVUjaD00"></input>
             </form>
-            <h2>Addresses</h3>
-            <textarea class="textarea" id="address-in"></textarea>
+            <h2 class="header">Addresses</h2>
+            <textarea class="textarea text-in" id="address-in"></textarea>
         </div>
     </div>
 
     <div id="viewDiv"></div>
 
     <div id="outputs">
-
+        <h2 class="header">Results</h2>
+        <textarea class="textarea text-out" id="latlon-out"></textarea>
     </div>
     
     <script src="app.js"></script>

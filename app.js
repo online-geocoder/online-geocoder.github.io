@@ -21,7 +21,7 @@ require([
         container: "viewDiv",
         map: map,
         center: [-75.163780, 39.952488],
-        zoom: 12
+        zoom: 10
     });
 
     // Create basemap toggle
