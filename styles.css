@@ -1,0 +1,58 @@
+/* 
+colors
+blue: #A2D4DF
+green: #6DC176
+red: #CD3331
+*/
+
+html, body {
+    padding: 0;
+    margin: 0;
+    height: 100%;
+    width: 100%;
+    background-color: #6DC176;
+  }
+
+#viewDiv {
+  padding: 0;
+  margin: auto;
+  height: 55%;
+  width: 100%;
+  text-align: center;
+  background-color: white;
+  }
+
+nav {
+  background-color: #A2D4DF;
+  text-align: center;
+}
+
+nav h1 {
+  display: inline-block;
+}
+
+#top {
+  text-align: center;
+}
+
+#inputs {
+  margin: auto;
+  margin-top: 25px;
+  margin-bottom: 50px;
+  display: inline-block;
+  text-align: center;
+}
+
+#address-in {
+  width: 500px;
+  height: 200px;;
+}
+
+#api-in {
+  width: 325px;
+  text-align: center;
+}
+
+#api-form {
+  margin-bottom: 10px;
+}
