@@ -19,11 +19,18 @@ html, body {
     font-family: 'Lato', sans-serif;
   }
 
+#main {
+  margin: auto;
+  width: 70%;
+  background-color: grey;
+  padding-bottom: 20px;
+}
+
 #viewDiv {
   padding: 2px;
   margin: auto;
   height: 500px;
-  width: 500px;
+  width: 90%;
   text-align: center;
   background-color: white;
   border: #F05D5E 2px solid;
@@ -87,7 +94,7 @@ nav h1 {
 }
 
 #latlon-out {
-  width: 500px;
+  width: 75%;
   height: 200px;
   padding: 5px;
 }
