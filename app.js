@@ -47,7 +47,7 @@ require([
         });
         
         view.popup.open({
-            title: `Reverse geocode: [${lat}, ${lon}]`,
+            title: `${lat}, ${lon}`,
             location: e.mapPoint
         });
     });

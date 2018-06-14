@@ -14,11 +14,18 @@ html, body {
     font-family: 'Lato', sans-serif;
   }
 
+#main {
+  margin: auto;
+  width: 70%;
+  background-color: grey;
+  padding-bottom: 20px;
+}
+
 #viewDiv {
   padding: 2px;
   margin: auto;
   height: 500px;
-  width: 500px;
+  width: 90%;
   text-align: center;
   background-color: white;
   border: #CD3331 2px solid;
