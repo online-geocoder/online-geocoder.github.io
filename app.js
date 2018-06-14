@@ -33,7 +33,7 @@ require([
     // Add basemap toggle to map
     view.ui.add(toggle, 'top-right');
 
-
+    // Handles map logic that shows lat, lon and address on click in map
     view.on('click', function(e) {
         e.stopPropagation();
 
@@ -52,23 +52,50 @@ require([
         });
     });
 
+    // https://maps.googleapis.com/maps/api/geocode/json?address=4730 Crystal Springs Dr, Los Angeles, CA&key=AIzaSyAf-6tsTGCPib1xkDgVkTcZp_G6uSMHBCg
+    const requestUrl = 'https://maps.googleapis.com/maps/api/geocode/json?address='
+    const key = '&key=' + $('#api-in').val();
+
+    // 
     const submitButton = $('#submit-button');
     submitButton.on('click', function(e) {
-        // console.log('button clicked');
         
         let addressList = $('#address-in').val();
-        // console.log(addressList.split('\n'));
 
         addressList.split('\n').forEach(function(item) {
             if (item.length > 0) {
-                console.log(item);
-                let address = {"singleLine": item}
-                let params = {address: address};
-                locatorTask.addressToLocations(params).then(function(response) {
-                    console.log(response);
-                }).catch(function(error) {
-                    console.log("Error geocoding");
+                console.log(requestUrl + encodeURI(item) + key)
+                let address = requestUrl + item + key;
+                $.get(address, data => {
+                    let output = '';
+
+                    //console.log(data.results);
+
+                    output += data.results[0].geometry.location.lat + ',';
+                    output += data.results[0].geometry.location.lng + ',';
+                    output += data.results[0].geometry.location_type;
+                    //output += data.results[0].formatted_address;
+
+                    console.log(output);
+
+                    let outText = $('#latlon-out');
+                    outText.val(outText.val() + output + '\n');
+
+                    //console.log(data.results[0]);
+                    //console.log(data.results[0].formatted_address);
                 });
+
+
+
+
+                // console.log(item);
+                // let address = {"singleLine": item}
+                // let params = {address: address};
+                // locatorTask.addressToLocations(params).then(function(response) {
+                //     console.log(response);
+                // }).catch(function(error) {
+                //     alert(`Error geocoding: ${item}`);
+                // });
             }
         });
     });
