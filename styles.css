@@ -11,13 +11,14 @@ html, body {
     height: 100%;
     width: 100%;
     background-color: #6DC176;
+    font-family: 'Lato', sans-serif;
   }
 
 #viewDiv {
   padding: 2px;
   margin: auto;
-  height: 60%;
-  width: 60%;
+  height: 500px;
+  width: 500px;
   text-align: center;
   background-color: white;
   border: #CD3331 2px solid;
@@ -48,13 +49,14 @@ nav h1 {
 #address-in {
   width: 500px;
   height: 200px;
-  padding: 5px;
+  padding: 10px;
 }
 
 #api-in {
   width: 345px;
   text-align: center;
-  padding: 5px;
+  padding: 7px;
+  margin-top: 3px;
 }
 
 #api-form {
@@ -85,4 +87,15 @@ nav h1 {
 
 .header {
   margin-bottom: 2px;
+}
+
+#submit-button {
+  margin-top: 2px;
+  background-color: #CD3331;
+  border: none;
+  color: white;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  font-size: 16px;
 }

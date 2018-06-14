@@ -34,8 +34,6 @@ require([
     view.ui.add(toggle, 'top-right');
 
 
-
-
     view.on('click', function(e) {
         e.stopPropagation();
 
@@ -51,6 +49,27 @@ require([
         view.popup.open({
             title: `Reverse geocode: [${lat}, ${lon}]`,
             location: e.mapPoint
+        });
+    });
+
+    const submitButton = $('#submit-button');
+    submitButton.on('click', function(e) {
+        // console.log('button clicked');
+        
+        let addressList = $('#address-in').val();
+        // console.log(addressList.split('\n'));
+
+        addressList.split('\n').forEach(function(item) {
+            if (item.length > 0) {
+                console.log(item);
+                let address = {"singleLine": item}
+                let params = {address: address};
+                locatorTask.addressToLocations(params).then(function(response) {
+                    console.log(response);
+                }).catch(function(error) {
+                    console.log("Error geocoding");
+                });
+            }
         });
     });
  });

@@ -7,29 +7,41 @@
     <link rel="shortcut icon" href="images/tab_icon.png">
     <link rel="stylesheet", href="https://js.arcgis.com/4.7/esri/css/main.css">
     <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
     <script src="https://js.arcgis.com/4.7/"></script>
+    <script
+        src="https://code.jquery.com/jquery-3.3.1.min.js"
+        integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+        crossorigin="anonymous">
+    </script>
 </head>
 <body>
     <nav>
         <h1 id="title">GeoBROder</h1>
     </nav>
-    <div id="top">
-        <div id="inputs">
-            <form id='api-form'>
-                <h2 class="header">Api Key</h2>
-                <input type="text" class="field text-in" id="api-in" value="AIzaSyDpa9FUmUBcVQwg37VRDoOs3W3JVUjaD00"></input>
-                <h2 class="header">Addresses</h2>
-                <input type="text" class="textarea text-in" id="address-in"></input>
-            </form>
-            
+    
+    <div id="main">
+
+        <div id="top">
+            <div id="inputs">
+                <form id='api-form'>
+                    <h2 class="header">Api Key</h2>
+                    <input type="text" class="field text-in" id="api-in" value="AIzaSyDpa9FUmUBcVQwg37VRDoOs3W3JVUjaD00"></input>
+                    <h2 class="header">Addresses</h2>
+                    <textarea class="textarea text-in" id="address-in"></textarea>
+                </form>
+                <button id="submit-button">Go!</button>
+                
+            </div>
         </div>
-    </div>
 
-    <div id="viewDiv"></div>
+        <div id="viewDiv"></div>
 
-    <div id="outputs">
-        <h2 class="header">Results</h2>
-        <textarea class="textarea text-out" id="latlon-out"></textarea>
+        <div id="outputs">
+            <h2 class="header">Results</h2>
+            <textarea class="textarea text-out" id="latlon-out"></textarea>
+        </div>
+
     </div>
     
     <script src="app.js"></script>
