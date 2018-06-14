@@ -5,6 +5,7 @@ green: #6DC176
 red: #CD3331
 redv2: #F05D5E
 greenv2: #0F7173
+greenv2light: #3FB0AC
 lightgrey: #E7ECEF
 darkgrey: #272932
 tan: #D8A47F
@@ -15,14 +16,14 @@ html, body {
     margin: 0;
     height: 100%;
     width: 100%;
-    background-color: #E7ECEF;
+    background-color: #3FB0AC;
     font-family: 'Lato', sans-serif;
   }
 
 #main {
   margin: auto;
   width: 70%;
-  background-color: grey;
+  background-color: #E7ECEF;
   padding-bottom: 20px;
 }
 
@@ -64,6 +65,7 @@ nav h1 {
   width: 500px;
   height: 200px;
   padding: 10px;
+  margin-top: 3px;
 }
 
 #api-in {
@@ -97,10 +99,12 @@ nav h1 {
   width: 75%;
   height: 200px;
   padding: 5px;
+  margin-top: 3px;
 }
 
 .header {
   margin-bottom: 2px;
+  font-family: sans-serif;
 }
 
 #submit-button {
@@ -112,4 +116,10 @@ nav h1 {
   text-align: center;
   text-decoration: none;
   font-size: 16px;
+}
+
+.pg-titl-bdr-btm{
+  border: 0;
+  border-top: 2px solid #D8A47F;
+  width: 75px;
 }
