@@ -3,6 +3,11 @@ colors
 blue: #A2D4DF
 green: #6DC176
 red: #CD3331
+redv2: #F05D5E
+greenv2: #0F7173
+lightgrey: #E7ECEF
+darkgrey: #272932
+tan: #D8A47F
 */
 
 html, body {
@@ -10,7 +15,7 @@ html, body {
     margin: 0;
     height: 100%;
     width: 100%;
-    background-color: #6FC176;
+    background-color: #E7ECEF;
     font-family: 'Lato', sans-serif;
   }
 
@@ -21,13 +26,15 @@ html, body {
   width: 500px;
   text-align: center;
   background-color: white;
-  border: #CD3331 2px solid;
+  border: #F05D5E 2px solid;
   border-radius: 10px;
   }
 
 nav {
-  background-color: #A2D4DF;
+  background-color: #272932;
   text-align: center;
+  color: #E7ECEF;
+  text-transform: uppercase;
 }
 
 nav h1 {
@@ -64,12 +71,12 @@ nav h1 {
 }
 
 .text-in {
-  border: #CD3331 2px solid;
+  border: #F05D5E 2px solid;
   border-radius: 10px;
 }
 
 .text-out {
-  border: #CD3331 2px solid;
+  border: #F05D5E 2px solid;
   border-radius: 10px;
 }
 
@@ -91,9 +98,9 @@ nav h1 {
 
 #submit-button {
   margin-top: 2px;
-  background-color: #CD3331;
+  background-color: #F05D5E;
   border: none;
-  color: white;
+  color: #272932;
   padding: 15px 32px;
   text-align: center;
   text-decoration: none;
