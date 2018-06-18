@@ -3,13 +3,10 @@ require([
     "esri/Map",
     "esri/views/MapView",
     "esri/widgets/BasemapToggle",
-    "dojo/domReady!",
-    "esri/geometry/Multipoint",
-    "esri/geometry/Point",
-    "esri/symbols/SimpleMarkerSymbol",
     "esri/Graphic",
-    "esri/layers/GraphicsLayer"
-  ], function(Locator, Map,MapView, BasemapToggle, Multipoint, Point, SimpleMarkerSymbol, Graphic, GraphicsLayer) {
+    "esri/layers/GraphicsLayer",
+    "dojo/domReady!"
+  ], function(Locator, Map, MapView, BasemapToggle, Graphic, GraphicsLayer) {
 
     // Create a locator task using the world geocoding service
     const locatorTask = new Locator({
@@ -17,7 +14,7 @@ require([
     });
 
     // Create the Map
-    const map = new Map({
+    let map = new Map({
        basemap: "streets-navigation-vector"
     });
 
@@ -62,51 +59,69 @@ require([
     const key = '&key=' + $('#api-in').val();
 
     // 
+
     const submitButton = $('#submit-button');
     submitButton.on('click', function(e) {
+
         
-        $('#latlon-out').val("");
-        let addressList = $('#address-in').val();
+    $('#latlon-out').val("");
+    let addressList = $('#address-in').val();
 
-        addressList.split('\n').forEach(function(item) {
-            if (item.length > 0) {
-                console.log(requestUrl + encodeURI(item) + key)
-                let address = requestUrl + item + key;
-                $.get(address, data => {
-                    let output = '';
+    addressList.split('\n').forEach(function(item) {
+        if (item.length > 0) {              
+            console.log(requestUrl + encodeURI(item) + key)
+            let address = requestUrl + item + key;
+            $.get(address, data => {
+                let output = '';
 
-                    //console.log(data.results);
+                //console.log(data.results);
 
-                    output += data.results[0].geometry.location.lat + ',';
-                    output += data.results[0].geometry.location.lng + ',';
-                    output += data.results[0].geometry.location_type;
-                    //output += data.results[0].formatted_address;
+                output += data.results[0].geometry.location.lat + ',';
+                output += data.results[0].geometry.location.lng + ',';
+                output += data.results[0].geometry.location_type;
+                //output += data.results[0].formatted_address;
 
-                    //console.log(output);
+                //console.log(output);
 
-                    let outText = $('#latlon-out');
-                    outText.val(outText.val() + output + '\n');            
+                let outText = $('#latlon-out');
+                outText.val(outText.val() + output + '\n');            
 
-                    let point = {type: 'point', latitude: data.results[0].geometry.location.lat, longitude: data.results[0].geometry.location.lng};
-                    let symbol = {type: "simple-marker", color: [226, 119, 40], };
-                    let pointGraphic = new Graphic({geometry: point, symbol: symbol, outline: {color: [255, 255, 255], width: 2}});
-                    console.log(typeof pointGraphic);
-                    //view.graphics.add(pointGraphic);
-                    //view.graphics.add(graphic);
+                //let point = {type: 'point', latitude: data.results[0].geometry.location.lat, longitude: data.results[0].geometry.location.lng};
+                var point = {
+                    type: "point",
+                    longitude: data.results[0].geometry.location.lng,
+                    latitude: data.results[0].geometry.location.lat
+                  };
+            
+                var markerSymbol = {
+                    type: "simple-marker",
+                    outline: {
+                        style: "none"
+                    },
+                    size: 12,
+                    color: [255, 0, 0, 1]
+                };
+            
+                var pointGraphic = new Graphic({
+                    geometry: point,
+                    symbol: markerSymbol
+                  });
+            
+                
+                view.graphics.add(pointGraphic)
+
+                
+
+                // view.goTo(pointGraphic);
+                // view.zoom = 15;
+                // console.log(view.zoom);
+                // view.zoom = 2;
+                // console.log(view.zoom);
+
+                view.goTo({target: pointGraphic, zoom: 16});
+                
                 });
-
-
-
-
-                // console.log(item);
-                // let address = {"singleLine": item}
-                // let params = {address: address};
-                // locatorTask.addressToLocations(params).then(function(response) {
-                //     console.log(response);
-                // }).catch(function(error) {
-                //     alert(`Error geocoding: ${item}`);
-                // });
             }
         });
     });
- });
+});
