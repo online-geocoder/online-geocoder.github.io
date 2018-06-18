@@ -1,11 +1,7 @@
 /* 
 colors
-blue: #A2D4DF
-green: #6DC176
-red: #CD3331
-redv2: #F05D5E
-greenv2: #0F7173
-greenv2light: #3FB0AC
+red: #F05D5E
+green: #3FB0AC
 lightgrey: #E7ECEF
 darkgrey: #272932
 tan: #D8A47F
@@ -16,7 +12,7 @@ html, body {
     margin: 0;
     height: 100%;
     width: 100%;
-    background-color: #3FB0AC;
+    background-color: #368ABD;
     font-family: 'Lato', sans-serif;
   }
 
@@ -42,7 +38,6 @@ nav {
   background-color: #272932;
   text-align: center;
   color: #E7ECEF;
-  text-transform: uppercase;
 }
 
 nav h1 {
@@ -59,17 +54,18 @@ nav h1 {
   margin-bottom: 50px;
   display: inline-block;
   text-align: center;
+  width: 90%;
 }
 
 #address-in {
-  width: 500px;
+  width: 75%;
   height: 200px;
   padding: 10px;
   margin-top: 3px;
 }
 
 #api-in {
-  width: 345px;
+  width: 40%;
   text-align: center;
   padding: 7px;
   margin-top: 3px;
