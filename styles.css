@@ -22,7 +22,7 @@ html, body {
 
 #main {
   margin: auto;
-  width: 70%;
+  width: 50%;
   background-color: #E7ECEF;
   padding-bottom: 20px;
 }
@@ -31,7 +31,7 @@ html, body {
   padding: 2px;
   margin: auto;
   height: 500px;
-  width: 90%;
+  width: 75%;
   text-align: center;
   background-color: white;
   border: #F05D5E 2px solid;
