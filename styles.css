@@ -1,7 +1,7 @@
 /* 
 colors
+blue: #368ABD
 red: #F05D5E
-green: #3FB0AC
 lightgrey: #E7ECEF
 darkgrey: #272932
 tan: #D8A47F
@@ -14,7 +14,7 @@ html, body {
     width: 100%;
     background-color: #368ABD;
     font-family: 'Lato', sans-serif;
-  }
+}
 
 #main {
   margin: auto;
@@ -30,27 +30,31 @@ html, body {
   width: 75%;
   text-align: center;
   background-color: white;
-  border: #F05D5E 2px solid;
+  border: #F05D5E 3px solid;
   border-radius: 10px;
-  }
+}
 
 nav {
   background-color: #272932;
   text-align: center;
   color: #E7ECEF;
+  /* position: fixed;
+  width: 100%; */
 }
 
 nav h1 {
   display: inline-block;
+  font-size: 26px;
 }
 
 #top {
   text-align: center;
+  /* padding-top: 50px; */
 }
 
 #inputs {
   margin: auto;
-  margin-top: 25px;
+  /* margin-top: 25px; */
   display: inline-block;
   text-align: center;
   width: 90%;
@@ -105,15 +109,22 @@ nav h1 {
 #submit-button {
   margin-top: 2px;
   background-color: #F05D5E;
-  border: none;
+  border: 2px solid #F05D5E;
   color: #272932;
   padding: 15px 32px;
   text-align: center;
   text-decoration: none;
-  font-size: 16px;
+  font-size: 18px;
+  font-weight: bold;
+  border-radius: 5px;
+  font-family: 'Lato', sans-serif;
 }
 
-.pg-titl-bdr-btm{
+#submit-button:hover {
+  background-color: #ea8181;
+}
+
+.pg-titl-bdr-btm {
   border: 0;
   border-top: 2px solid #D8A47F;
   width: 75px;
