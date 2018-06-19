@@ -76,10 +76,11 @@ require([
 
                 console.log(data.results);
 
-                output += data.results[0].formatted_address + ',';
+                
                 output += data.results[0].geometry.location.lat + ',';
                 output += data.results[0].geometry.location.lng + ',';
                 output += data.results[0].geometry.location_type;
+                output += data.results[0].formatted_address;
                 //output += data.results[0].formatted_address;
 
                 //console.log(output);
