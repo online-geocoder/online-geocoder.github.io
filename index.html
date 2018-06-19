@@ -30,10 +30,13 @@
                     <input type="text" class="field text-in" id="api-in" value="AIzaSyAf-6tsTGCPib1xkDgVkTcZp_G6uSMHBCg"></input>
                     <h2 class="header">Addresses to Geocode</h2><hr class="pg-titl-bdr-btm">
                     <textarea class="textarea text-in" id="address-in"></textarea>
+                    <div id="showOnMapCheck">
+                        <input type="checkbox" id="showOnMapBox">
+                        <label for="showOnMap" id="showOnMapLabel">Show points on Map</label>
+                    </div>
                 </form>
                 <button id="submit-button">Go!</button>
                 <h3 class="header" id="complete">0 / 0 Complete</h2>
-                
             </div>
         </div>
 
@@ -44,7 +47,7 @@
             <textarea class="textarea text-out" id="latlon-out"></textarea>
         </div>
     </div>
-    
+
     <script src="app.js"></script>
 </body>
 </html>
