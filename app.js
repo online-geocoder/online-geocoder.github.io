@@ -79,7 +79,7 @@ require([
                 
                 output += data.results[0].geometry.location.lat + ',';
                 output += data.results[0].geometry.location.lng + ',';
-                output += data.results[0].geometry.location_type;
+                output += data.results[0].geometry.location_type + ',';
                 output += data.results[0].formatted_address;
                 //output += data.results[0].formatted_address;
 
