@@ -37,6 +37,7 @@ require([
 
     // Handles map logic that shows lat, lon and address on click in map
     view.on('click', function(e) {
+        // prevents event bubbling
         e.stopPropagation();
 
         const lat = Math.round(e.mapPoint.latitude * 1000) / 1000;
@@ -54,75 +55,54 @@ require([
         });
     });
 
-    // https://maps.googleapis.com/maps/api/geocode/json?address=4730 Crystal Springs Dr, Los Angeles, CA&key=AIzaSyAf-6tsTGCPib1xkDgVkTcZp_G6uSMHBCg
     const requestUrl = 'https://maps.googleapis.com/maps/api/geocode/json?address='
     const key = '&key=' + $('#api-in').val();
 
-    // 
-
     const submitButton = $('#submit-button');
     submitButton.on('click', function(e) {
+        $('#latlon-out').val("");
+        let addressList = $('#address-in').val();
 
-        
-    $('#latlon-out').val("");
-    let addressList = $('#address-in').val();
+        addressList.split('\n').forEach(function(item) {
+            if (item.length > 0) {              
+                let address = requestUrl + item + key;
+                $.ajax({url: address, async: false, success: data => {
+                    let output = '';
 
-    addressList.split('\n').forEach(function(item) {
-        if (item.length > 0) {              
-            console.log(requestUrl + encodeURI(item) + key)
-            let address = requestUrl + item + key;
-            $.ajax({url: address, async: false, success: data => {
-                let output = '';
+                    //console.log(data.results);
+                    output += data.results[0].geometry.location.lat + ',';
+                    output += data.results[0].geometry.location.lng + ',';
+                    output += data.results[0].geometry.location_type + ',';
+                    output += data.results[0].formatted_address.split(',').join(' ');
 
-                console.log(data.results);
+                    let outText = $('#latlon-out');
+                    outText.val(outText.val() + output + '\n');            
 
+                    //let point = {type: 'point', latitude: data.results[0].geometry.location.lat, longitude: data.results[0].geometry.location.lng};
+                    const point = {
+                        type: "point",
+                        longitude: data.results[0].geometry.location.lng,
+                        latitude: data.results[0].geometry.location.lat
+                    };
                 
-                output += data.results[0].geometry.location.lat + ',';
-                output += data.results[0].geometry.location.lng + ',';
-                output += data.results[0].geometry.location_type + ',';
-                output += data.results[0].formatted_address;
-                //output += data.results[0].formatted_address;
-
-                //console.log(output);
-
-                let outText = $('#latlon-out');
-                outText.val(outText.val() + output + '\n');            
-
-                //let point = {type: 'point', latitude: data.results[0].geometry.location.lat, longitude: data.results[0].geometry.location.lng};
-                var point = {
-                    type: "point",
-                    longitude: data.results[0].geometry.location.lng,
-                    latitude: data.results[0].geometry.location.lat
-                  };
-            
-                var markerSymbol = {
-                    type: "simple-marker",
-                    outline: {
-                        style: "none"
-                    },
-                    size: 12,
-                    color: [255, 0, 0, 1]
-                };
-            
-                var pointGraphic = new Graphic({
-                    geometry: point,
-                    symbol: markerSymbol
-                  });
-            
+                    const markerSymbol = {
+                        type: "simple-marker",
+                        outline: {
+                            style: "none"
+                        },
+                        size: 12,
+                        color: [255, 0, 0, 1]
+                    };
                 
-                view.graphics.add(pointGraphic)
-
+                    const pointGraphic = new Graphic({
+                        geometry: point,
+                        symbol: markerSymbol
+                    });
                 
-
-                // view.goTo(pointGraphic);
-                // view.zoom = 15;
-                // console.log(view.zoom);
-                // view.zoom = 2;
-                // console.log(view.zoom);
-
-                view.goTo({target: pointGraphic, zoom: 16});
-                
-                }
+                    
+                    view.graphics.add(pointGraphic)
+                    view.goTo({target: pointGraphic, zoom: 16});
+                    }
                 });
             }
         });
