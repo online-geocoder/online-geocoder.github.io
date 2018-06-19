@@ -63,10 +63,21 @@ require([
         $('#latlon-out').val("");
         let addressList = $('#address-in').val();
 
-        addressList.split('\n').forEach(function(item) {
+        const length = addressList.split('\n').length - 1;
+        let currentNum = 1;
+        addressList.split('\n').forEach(function(item, index) {
             if (item.length > 0) {              
                 let address = requestUrl + item + key;
+                
                 $.ajax({url: address, async: false, success: data => {
+                    //console.log(address);
+
+                    setTimeout( () => { 
+
+                    $('#complete').text(`${currentNum} / ${length} Complete`);
+                    currentNum += 1;
+                    console.log(currentNum);
+
                     let output = '';
 
                     //console.log(data.results);
@@ -101,7 +112,8 @@ require([
                 
                     
                     view.graphics.add(pointGraphic)
-                    view.goTo({target: pointGraphic, zoom: 16});
+                    view.goTo({target: pointGraphic, zoom: 15});
+                    }, index * 1000);
                     }
                 });
             }

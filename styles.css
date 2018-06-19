@@ -51,7 +51,6 @@ nav h1 {
 #inputs {
   margin: auto;
   margin-top: 25px;
-  margin-bottom: 50px;
   display: inline-block;
   text-align: center;
   width: 90%;
@@ -118,4 +117,9 @@ nav h1 {
   border: 0;
   border-top: 2px solid #D8A47F;
   width: 75px;
+}
+
+#complete {
+  margin-top: 20px;
+  margin-bottom: 20px;
 }
