@@ -71,11 +71,12 @@ require([
         if (item.length > 0) {              
             console.log(requestUrl + encodeURI(item) + key)
             let address = requestUrl + item + key;
-            $.get(address, data => {
+            $.ajax({url: address, async: false, success: data => {
                 let output = '';
 
-                //console.log(data.results);
+                console.log(data.results);
 
+                output += data.results[0].formatted_address + ',';
                 output += data.results[0].geometry.location.lat + ',';
                 output += data.results[0].geometry.location.lng + ',';
                 output += data.results[0].geometry.location_type;
@@ -120,6 +121,7 @@ require([
 
                 view.goTo({target: pointGraphic, zoom: 16});
                 
+                }
                 });
             }
         });
