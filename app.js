@@ -35,6 +35,14 @@ require([
     // Add basemap toggle to map
     view.ui.add(toggle, 'top-right');
 
+    const requestUrl = 'https://maps.googleapis.com/maps/api/geocode/json?address='
+    let key = '&key=' + $('#api-in').val();
+
+    $('#api-in').on('input', function() {
+        key = '&key=' + $('#api-in').val()
+        //console.log(key);
+    });
+
     // Handles map logic that shows lat, lon and address on click in map
     view.on('click', function(e) {
         // prevents event bubbling
@@ -55,11 +63,10 @@ require([
         });
     });
 
-    const requestUrl = 'https://maps.googleapis.com/maps/api/geocode/json?address='
-    const key = '&key=' + $('#api-in').val();
-
     const submitButton = $('#submit-button');
     submitButton.on('click', function(e) {
+        //console.log(key);
+
         let geocodeSpeed = 0;
         if ($('#showOnMapBox').is(":checked")) {
             geocodeSpeed = 2000;
@@ -90,7 +97,8 @@ require([
 
                         let output = '';
 
-                        //console.log(data.results);
+                        console.log(data);
+                        console.log()
                         output += data.results[0].geometry.location.lat + ',';
                         output += data.results[0].geometry.location.lng + ',';
                         output += data.results[0].geometry.location_type + ',';
