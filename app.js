@@ -97,15 +97,18 @@ require([
 
                         let output = '';
 
-                        console.log(data);
-                        console.log()
-                        output += data.results[0].geometry.location.lat + ',';
-                        output += data.results[0].geometry.location.lng + ',';
-                        output += data.results[0].geometry.location_type + ',';
-                        output += data.results[0].formatted_address.split(',').join(' ');
+                        if (data.status == "OVER_QUERY_LIMIT") {
+                            let outText = $('#latlon-out');
+                            outText.val(outText.val() + 'OVER_QUERY_LIMIT' + ',' + item + '\n');
+                        } else {
+                            output += data.results[0].geometry.location.lat + ',';
+                            output += data.results[0].geometry.location.lng + ',';
+                            output += data.results[0].geometry.location_type + ',';
+                            output += data.results[0].formatted_address.split(',').join(' ');
 
-                        let outText = $('#latlon-out');
-                        outText.val(outText.val() + output + '\n');            
+                            let outText = $('#latlon-out');
+                            outText.val(outText.val() + output + '\n');
+                        }            
 
                         //let point = {type: 'point', latitude: data.results[0].geometry.location.lat, longitude: data.results[0].geometry.location.lng};
                         if ($('#showOnMapBox').is(":checked")) {
