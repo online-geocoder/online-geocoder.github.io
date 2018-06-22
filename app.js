@@ -35,12 +35,14 @@ require([
     // Add basemap toggle to map
     view.ui.add(toggle, 'top-right');
 
-    const requestUrl = 'https://maps.googleapis.com/maps/api/geocode/json?address='
-    let key = '&key=' + $('#api-in').val();
+    //const requestUrl = 'https://maps.googleapis.com/maps/api/geocode/json?';
+    const requestUrl = 'https://maps.googleapis.com/maps/api/place/textsearch/json?';
+    let key = 'key=' + $('#api-in').val();
 
     $('#api-in').on('input', function() {
-        key = '&key=' + $('#api-in').val()
-        //console.log(key);
+        key = 'key=' + $('#api-in').val()
+        $('#gmaps').attr('src', `https://maps.googleapis.com/maps/api/js?key=${key}&libraries=places`);
+        //console.log($('#gmaps').attr('src'));
     });
 
     // Handles map logic that shows lat, lon and address on click in map
@@ -84,12 +86,34 @@ require([
             length--;
         }
         //console.log(length);
+        let index = 0;
         let currentNum = 1;
+        let outputList = {};
         addressList.split('\n').forEach(function(item, index) {
             if (item.length > 0) {              
-                let address = requestUrl + item + key;
+                index += 1;
+                let address = encodeURI(requestUrl + key + '&query=' + (item).replace('&', '%26'));
+                //let address = encodeURI(requestUrl + key + '&address=' + (item).replace('&', '%26'));
                 
-                $.ajax({url: address, async: false, success: data => {
+                //console.log(address);
+
+                //console.log($('#service-helper'))
+                service = new google.maps.places.PlacesService($('#service-helper').get(0));
+                service.findPlaceFromQuery({query: item, fields: ['formatted_address', 'geometry']}, (results, status) => {
+                    //console.log(results);
+                    //console.log(status);
+
+                    //console.log(results[0]);
+                    let good = false;
+                    let data = '';
+                    console.log(results !== null, item);
+                    if (results !== null) {
+                        good = true;
+                        data = results[0]; 
+                        console.log(data);
+                    }
+                
+                // $.ajax({url: address, crossDomain: true, xhrFields: {withCredentials: true}, headers: {"Access-Control-Allow-Origin": true}, async: false, success: data => {
                     setTimeout( () => { 
                         $('#complete').text(`${currentNum} / ${length} Complete`);
                         currentNum += 1;
@@ -97,25 +121,34 @@ require([
 
                         let output = '';
 
-                        if (data.status == "OVER_QUERY_LIMIT") {
+                        if (!good) {
                             let outText = $('#latlon-out');
-                            outText.val(outText.val() + 'OVER_QUERY_LIMIT' + ',' + item + '\n');
-                        } else {
-                            output += data.results[0].geometry.location.lat + ',';
-                            output += data.results[0].geometry.location.lng + ',';
-                            output += data.results[0].geometry.location_type + ',';
-                            output += data.results[0].formatted_address.split(',').join(' ');
+                            outputList[index] = good + ',' + 'ERROR' + ',' + item;
+                            //outText.val(outText.val() + 'ERROR' + ',' + item + '\n');
+                        }
+                        else if (status == "OVER_QUERY_LIMIT") {
+                            let outText = $('#latlon-out');
+                            outputList[index] = good + ',' + 'OVER_QUERY_LIMIT' + ',' + item;
+                            //outText.val(outText.val() + 'OVER_QUERY_LIMIT' + ',' + item + '\n');
+                        } 
+                        else {
+                            //console.log(data);
+                            output += data.geometry.location.lat() + ',';
+                            output += data.geometry.location.lng() + ',';
+                            //output += data.geometry.location_type + ',';
+                            output += data.formatted_address.split(',').join(' ');
 
                             let outText = $('#latlon-out');
-                            outText.val(outText.val() + output + '\n');
+                            outputList[index] = good + ',' + output;
+                            //outText.val(outText.val() + output + '\n');
                         }            
 
                         //let point = {type: 'point', latitude: data.results[0].geometry.location.lat, longitude: data.results[0].geometry.location.lng};
                         if ($('#showOnMapBox').is(":checked")) {
                             const point = {
                                 type: "point",
-                                longitude: data.results[0].geometry.location.lng,
-                                latitude: data.results[0].geometry.location.lat
+                                longitude: data.geometry.location.lng(),
+                                latitude: data.geometry.location.lat()
                             };
                         
                             const markerSymbol = {
@@ -136,9 +169,10 @@ require([
                             view.goTo({target: pointGraphic, zoom: 15});
                         }
                         }, index * geocodeSpeed);
-                    }
+                   // }
                 });
             }
         });
+        console.log(outputList);
     });
 });
