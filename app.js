@@ -104,7 +104,8 @@ require([
                             output += data.results[0].geometry.location.lat + ',';
                             output += data.results[0].geometry.location.lng + ',';
                             output += data.results[0].geometry.location_type + ',';
-                            output += data.results[0].formatted_address.split(',').join(' ');
+                            output += data.results[0].formatted_address;
+                            //output += data.results[0].formatted_address.split(',').join(' ');
 
                             let outText = $('#latlon-out');
                             outText.val(outText.val() + output + '\n');
