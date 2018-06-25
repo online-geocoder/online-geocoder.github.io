@@ -40,7 +40,7 @@ require([
 
     $('#api-in').on('input', function() {
         key = '&key=' + $('#api-in').val()
-        //console.log(key);
+        console.log(key);
     });
 
     // Handles map logic that shows lat, lon and address on click in map
@@ -67,7 +67,7 @@ require([
     submitButton.on('click', function(e) {
         //console.log(key);
 
-        let geocodeSpeed = 0;
+        let geocodeSpeed = 200;
         if ($('#showOnMapBox').is(":checked")) {
             geocodeSpeed = 2000;
         }
@@ -87,7 +87,8 @@ require([
         let currentNum = 1;
         addressList.split('\n').forEach(function(item, index) {
             if (item.length > 0) {              
-                let address = requestUrl + item + key;
+                let address = encodeURI(requestUrl + item + key).replace('&', '%26');
+                console.log(address);
                 
                 $.ajax({url: address, async: false, success: data => {
                     setTimeout( () => { 
@@ -97,10 +98,11 @@ require([
 
                         let output = '';
 
+                        //console.log(data.results);
                         if (data.status == "OVER_QUERY_LIMIT") {
                             let outText = $('#latlon-out');
                             outText.val(outText.val() + 'OVER_QUERY_LIMIT' + ',' + item + '\n');
-                        } else {
+                        } else if (data.results.length > 0) {
                             output += data.results[0].geometry.location.lat + ',';
                             output += data.results[0].geometry.location.lng + ',';
                             output += data.results[0].geometry.location_type + ',';
@@ -109,7 +111,10 @@ require([
 
                             let outText = $('#latlon-out');
                             outText.val(outText.val() + output + '\n');
-                        }            
+                        } else {
+                            let outText = $('#latlon-out');
+                            outText.val(outText.val() + 'ERROR' + ',' + item + '\n');
+                        }
 
                         //let point = {type: 'point', latitude: data.results[0].geometry.location.lat, longitude: data.results[0].geometry.location.lng};
                         if ($('#showOnMapBox').is(":checked")) {
