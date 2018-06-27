@@ -90,7 +90,8 @@ require([
         let currentNum = 1;
         let outputList = {};
         addressList.split('\n').forEach(function(item, index) {
-            if (item.length > 0) {              
+            if (item.length > 0) {         
+
                 index += 1;
                 let address = encodeURI(requestUrl + key + '&query=' + (item).replace('&', '%26'));
                 //let address = encodeURI(requestUrl + key + '&address=' + (item).replace('&', '%26'));
@@ -101,7 +102,7 @@ require([
                 service = new google.maps.places.PlacesService($('#service-helper').get(0));
                 service.findPlaceFromQuery({query: item, fields: ['formatted_address', 'geometry']}, (results, status) => {
                     //console.log(results);
-                    //console.log(status);
+                    console.log(status);
 
                     //console.log(results[0]);
                     let good = false;
@@ -112,6 +113,8 @@ require([
                         data = results[0]; 
                         console.log(data);
                     }
+
+                    
                 
                 // $.ajax({url: address, crossDomain: true, xhrFields: {withCredentials: true}, headers: {"Access-Control-Allow-Origin": true}, async: false, success: data => {
                     setTimeout( () => { 
@@ -173,6 +176,6 @@ require([
                 });
             }
         });
-        console.log(outputList);
+        //console.log(outputList);
     });
 });
