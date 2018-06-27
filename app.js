@@ -88,7 +88,7 @@ require([
         //console.log(length);
         let index = 0;
         let currentNum = 1;
-        let outputList = {};
+        let outputList = [];
         addressList.split('\n').forEach(function(item, index) {
             if (item.length > 0) {         
 
@@ -102,13 +102,13 @@ require([
                 service = new google.maps.places.PlacesService($('#service-helper').get(0));
                 service.findPlaceFromQuery({query: item, fields: ['formatted_address', 'geometry']}, (results, status) => {
                     //console.log(results);
-                    console.log(status);
+                    //console.log(status);
 
                     //console.log(results[0]);
                     let good = false;
                     let data = '';
-                    console.log(results !== null, item);
-                    if (results !== null) {
+                    //console.log(results !== null, item);
+                    if (status == 'OK') {
                         good = true;
                         data = results[0]; 
                         console.log(data);
@@ -126,12 +126,12 @@ require([
 
                         if (!good) {
                             let outText = $('#latlon-out');
-                            outputList[index] = good + ',' + 'ERROR' + ',' + item;
+                            outputList[index] = 'ERROR' + ',' + item;
                             //outText.val(outText.val() + 'ERROR' + ',' + item + '\n');
                         }
                         else if (status == "OVER_QUERY_LIMIT") {
                             let outText = $('#latlon-out');
-                            outputList[index] = good + ',' + 'OVER_QUERY_LIMIT' + ',' + item;
+                            outputList[index] = 'OVER_QUERY_LIMIT' + ',' + item;
                             //outText.val(outText.val() + 'OVER_QUERY_LIMIT' + ',' + item + '\n');
                         } 
                         else {
@@ -142,7 +142,7 @@ require([
                             output += data.formatted_address.split(',').join(' ');
 
                             let outText = $('#latlon-out');
-                            outputList[index] = good + ',' + output;
+                            outputList[index] = output;
                             //outText.val(outText.val() + output + '\n');
                         }            
 
@@ -175,7 +175,8 @@ require([
                    // }
                 });
             }
+            
         });
-        //console.log(outputList);
+        console.log(outputList);
     });
 });
