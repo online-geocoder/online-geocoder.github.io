@@ -45,9 +45,14 @@ require([
     // updates key variable when new api key is entered in input
     $('#api-in').on('input', function() {
         key = 'key=' + $('#api-in').val()
-        $('#gmaps').attr('src', `https://maps.googleapis.com/maps/api/js?key=${key}&libraries=places`);
-        //console.log($('#gmaps').attr('src'));
+        $('#gmaps').attr('src', `https://maps.googleapis.com/maps/api/js?${key}&libraries=places`);
+        console.log('API ' + key);
     });
+
+    function scrollToBottom() {
+        const $textarea = $('#latlon-out');
+        $textarea.scrollTop($textarea[0].scrollHeight);
+    }
 
     // Handles map logic that shows lat, lon and address on click in map
     view.on('click', function(e) {
@@ -69,17 +74,12 @@ require([
         });
     });
 
-    // stall async function
-    async function stall(stallTime = 3000) {
-        await new Promise(resolve => setTimeout(resolve, stallTime));
-      }
-
     // event listener for submit button
     const submitButton = $('#submit-button');
     submitButton.on('click', function(e) {
-        let geocodeSpeed = 500;
+        let geocodeSpeed = 1000;
         if ($('#showOnMapBox').is(":checked")) {
-            geocodeSpeed = 2000;
+            geocodeSpeed = 2500;
         }
 
         $('#latlon-out').val("");
@@ -93,21 +93,23 @@ require([
             length--;
         }
 
-        let currentNum = 1;
         let outputList = [];
 
         for (let index = 0; index < length; index++) {
             (function (index) {
                 setTimeout(function () {
+
+                    if (index > 250) geocodeSpeed = 3000;
+
+                    if (index % 50 == 0) {
+                        console.log(`Geocode speed: ${geocodeSpeed / 1000} second(s)`)
+                        //console.log(geocodeSpeed * (index * 2))
+                    }
+
                     let item = splitAddressList[index];
                     if (item.length > 0) {
                         service = new google.maps.places.PlacesService($('#service-helper').get(0));
-                        service.findPlaceFromQuery({query: item, fields: ['formatted_address', 'geometry']}, callback)  
-
-                        function callbackSlow(results, status) {
-                            stall();
-                            setTimeout(callback(results, status), 3000)
-                        }
+                        service.findPlaceFromQuery({query: item, fields: ['formatted_address', 'geometry']}, callback)
 
                         function callback(results, status) { 
                             let good = false;
@@ -118,7 +120,6 @@ require([
                             }
 
                                 $('#complete').text(`${index + 1} / ${length} Complete`);
-                                currentNum += 1;
 
                                 let output = '';
 
@@ -143,6 +144,7 @@ require([
                                 }            
 
                                 $('#latlon-out').val(outputList.join('\n').trim());
+                                scrollToBottom();
             
                                 if ($('#showOnMapBox').is(":checked")) {
                                     const point = {
@@ -170,15 +172,17 @@ require([
 
                                     if (index + 1 == length && $('#showOnMapBox').is(":checked")) {
                                         setTimeout(function() {
-                                            view.goTo({target: view.graphics}, {duration: 2000}).then(function(){
+                                            view.goTo({target: view.graphics}, {duration: 3000}).then(function(){
                                                 view.zoom -= 1
                                             });
-                                        }, 3000)
+                                        }, 2000)
                                     }
                                 }
                             }
                         } 
-                        }, geocodeSpeed * index);
+                        //console.log(geocodeSpeed * index);
+                }, geocodeSpeed * index);
+                        //}, geocodeSpeed * (index * 2));
                     })(index);
                 };
     });
