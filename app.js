@@ -77,6 +77,11 @@ require([
     // event listener for submit button
     const submitButton = $('#submit-button');
     submitButton.on('click', function(e) {
+        if (key === 'key=') {
+            alert("Please enter a valid Google Places API key");
+            return;
+        }
+
         let geocodeSpeed = 1000;
         if ($('#showOnMapBox').is(":checked")) {
             geocodeSpeed = 2500;

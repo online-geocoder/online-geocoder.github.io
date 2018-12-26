@@ -29,10 +29,9 @@
             <div id="inputs">
                 <form id='api-form'>
                     <h2 class="header">Google Places Api Key</h2><hr class="pg-titl-bdr-btm">
-                    <h4 id=getKey><a href="https://developers.google.com/places/web-service/get-api-key" target="_blank">Get a key</a></h3>
-                    <input type="text" class="field text-in" id="api-in" placeholder="Please input a valid Google Places API key"></input>
+                    <input type="text" class="field text-in" id="api-in" value="AIzaSyAf-6tsTGCPib1xkDgVkTcZp_G6uSMHBCg" placeholder="Please input a valid Google Places API key"></input>
                     <h2 class="header">Addresses to Geocode</h2><hr class="pg-titl-bdr-btm">
-                    <textarea class="textarea text-in" id="address-in" placeholder="Put your list of addresses here. Each address should be on its own line."></textarea>
+                    <textarea class="textarea text-in" id="address-in"></textarea>
                     <div id="showOnMapCheck">
                         <input type="checkbox" id="showOnMapBox">
                         <label for="showOnMap" id="showOnMapLabel">Show points on Map</label>
@@ -47,7 +46,7 @@
 
         <div id="outputs">
             <h2 class="header">Results</h2><hr class="pg-titl-bdr-btm">
-            <textarea class="textarea text-out" id="latlon-out" placeholder="Your results will populate here once you click Go!"></textarea>
+            <textarea class="textarea text-out" id="latlon-out"></textarea>
         </div>
     </div>
 
