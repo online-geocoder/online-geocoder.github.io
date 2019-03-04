@@ -47,6 +47,7 @@ require([
         key = 'key=' + $('#api-in').val()
         $('#gmaps').attr('src', `https://maps.googleapis.com/maps/api/js?${key}&libraries=places`);
         console.log('API ' + key);
+        //console.log($('#gmaps').attr('src'))
     });
 
     function scrollToBottom() {
